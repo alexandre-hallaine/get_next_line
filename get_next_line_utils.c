@@ -6,7 +6,7 @@
 /*   By: ahallain <ahallain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 20:13:58 by ahallain          #+#    #+#             */
-/*   Updated: 2019/11/13 15:28:54 by ahallain         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:39:22 by ahallain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,13 @@ char	*ft_chrmove(char **dst, int c)
 	size_t	index;
 	size_t	len;
 
-	index = ft_strlen(*dst, c) + 1;
+	index = ft_strlen(*dst, c);
 	if (!(res = malloc(ft_strlen(*dst, 0) - index + 1)))
 		return (NULL);
-	len = 0;
-	while ((*dst)[index + len])
-	{
-		res[len] = (*dst)[index + len];
-		len++;
-	}
+	len = ft_strlen(*dst, 0) - index;
 	res[len] = 0;
+	while (len--)
+		res[len] = (*dst)[index + 1 + len];
 	free(*dst);
 	*dst = res;
 	return (res);
