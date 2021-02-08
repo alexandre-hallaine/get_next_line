@@ -5,46 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahallain <ahallain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 20:13:27 by ahallain          #+#    #+#             */
-/*   Updated: 2019/11/26 18:48:06 by ahallain         ###   ########.fr       */
+/*   Created: 2021/02/08 21:44:56 by ahallain          #+#    #+#             */
+/*   Updated: 2021/02/08 23:03:09 by ahallain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include "get_next_line.h"
 
-void	verify(char **memory, int ret)
+#ifndef BUFFERSIZE
+# define BUFFERSIZE 32
+#endif
+
+bool	gnl_init(char **buf, char **sav)
 {
-	if (!ret)
+	if (!(*buf = malloc(sizeof(char *) * (BUFFERSIZE + 1))))
+		return (1);
+	if (!*sav)
 	{
-		free(*memory);
-		*memory = 0;
+		if (!(*sav = malloc(sizeof(char *))))
+			return (1);
+		**sav = 0;
 	}
+	return (0);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*memory[256];
-	char		*buffer;
-	int			ret;
-	int			read_value;
+	static char	*sav[PATH_MAX];
+	char		*buf;
+	ssize_t		ret;
+	bool		includes;
 
-	if (!line || BUFFER_SIZE <= 0 || !(fd + 1)
-		|| (!memory[fd] && (!(memory[fd] = malloc(1))
-		|| (*memory[fd] = 0)))
-		|| !(buffer = malloc(BUFFER_SIZE + 1)))
+	if (gnl_init(&buf, &sav[fd]))
 		return (-1);
-	while (!ft_strcchr(memory[fd], '\n')
-		&& (read_value = read(fd, buffer, BUFFER_SIZE)) > 0)
+	ret = 0;
+	while (!(includes = ft_includes(sav[fd], '\n'))
+		&& (ret = read(fd, buf, BUFFERSIZE)) > 0)
 	{
-		buffer[read_value] = 0;
-		ft_stradd(&memory[fd], buffer);
+		buf[ret] = 0;
+		ft_addstr(buf, &sav[fd]);
 	}
-	*line = ft_firstchr(memory[fd], '\n');
-	ret = ft_strcchr(memory[fd], '\n');
-	ft_chrmove(&memory[fd], '\n');
-	free(buffer);
-	if (read_value == -1)
-		return (-1);
-	verify(&memory[fd], ret);
+	free(buf);
+	if (ret != -1)
+		ret = includes;
+	*line = ft_getstr(sav[fd], '\n');
+	ft_rmfirst(&sav[fd], ft_strlen(sav[fd], '\n') + includes);
+	if (!ret)
+		free(sav[fd]);
 	return (ret);
 }
