@@ -1,0 +1,6 @@
+salut je suis une phrase de test
+simplement pour voir si mon gnl est parfait
+pour linstant ca a lair
+mais je ne suis pas sur
+ou bien il leak ?
+bon bah cest partie pour des tests
