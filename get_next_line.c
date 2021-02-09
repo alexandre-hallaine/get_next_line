@@ -6,7 +6,7 @@
 /*   By: ahallain <ahallain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:44:56 by ahallain          #+#    #+#             */
-/*   Updated: 2021/02/08 23:03:09 by ahallain         ###   ########.fr       */
+/*   Updated: 2021/02/09 14:37:38 by ahallain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@
 # define BUFFERSIZE 32
 #endif
 
-bool	gnl_init(char **buf, char **sav)
+bool	gnl_check(int fd, char **buf, char **sav)
 {
+	if (BUFFERSIZE <= 0)
+		return (1);
+	if (fd < 0)
+		return (1);
 	if (!(*buf = malloc(sizeof(char *) * (BUFFERSIZE + 1))))
 		return (1);
 	if (!*sav)
@@ -40,7 +44,7 @@ int		get_next_line(int fd, char **line)
 	ssize_t		ret;
 	bool		includes;
 
-	if (gnl_init(&buf, &sav[fd]))
+	if (gnl_check(fd, &buf, &sav[fd]))
 		return (-1);
 	ret = 0;
 	while (!(includes = ft_includes(sav[fd], '\n'))
