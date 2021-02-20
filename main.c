@@ -6,7 +6,7 @@
 /*   By: ahallain <ahallain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:37:45 by ahallain          #+#    #+#             */
-/*   Updated: 2021/02/08 23:08:54 by ahallain         ###   ########.fr       */
+/*   Updated: 2021/02/20 19:41:47 by ahallain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "get_next_line.h"
+
+int		get_next_line(int fd, char **line);
 
 void	ft_putchar(char c)
 {
