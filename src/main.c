@@ -3,7 +3,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "get_next_line.h"
+char *get_next_line(int fd);
 
 void error(char *str)
 {
@@ -13,10 +13,10 @@ void error(char *str)
 
 int main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc > 2)
 		error("usage: ./a.out <file>");
 
-	int fd = open(argv[1], O_RDONLY);
+	int fd = argc == 1 ? 0 : open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error("an error occured with open");
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	char *str;
 	while ((str = get_next_line(fd)))
 	{
-		//printf("%zu: %s", ++index, str);
+		printf("%zu: %s", ++index, str);
 		free(str);
 	}
 	(void)index;
