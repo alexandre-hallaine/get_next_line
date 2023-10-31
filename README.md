@@ -20,9 +20,9 @@ An optimized C implementation of the `get_next_line` function, engineered for hi
 Clone this repository and navigate to the directory where it is located. The core files for the `get_next_line` function are:
 
 - **Header File**: `include/get_next_line.h`
-- **Source Files**: 
-  - `src/get_next_line.c`
-  - `src/get_next_line_utils.c`
+- **Source Files**:
+    - `src/get_next_line.c`
+    - `src/get_next_line_utils.c`
 
 Compile these source files along with your project to integrate the `get_next_line` functionality:
 
@@ -50,9 +50,9 @@ The code gracefully handles possible memory allocation and file I/O errors. Make
 - **Language**: C
 - **Required Libraries**: `<stdio.h>`, `<stdlib.h>`, `<unistd.h>`
 - **Data Structures**: Dynamic strings
-- **Utility Functions**: 
-  - `ft_strlen`: Custom implementation of `strlen`
-  - `ft_strchr`: Custom implementation of `strchr`
+- **Utility Functions**:
+    - `ft_strlen`: Custom implementation of `strlen`
+    - `ft_strchr`: Custom implementation of `strchr`
 - **Memory Management**: Uses dynamic memory allocation; callers must free allocated memory.
 - **Concurrency**: Utilizes a static variable; not thread-safe.
 - **Buffering**: Employs a buffer of size `BUFFER_SIZE` for optimized I/O.
