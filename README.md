@@ -65,7 +65,7 @@ Tested on a `big.txt` file with the following characteristics:
 - **Lines**: 128,457
 - **Words**: 1,095,695
 
-Average execution time: 0.065 seconds.
+Average execution time: 0.048 seconds.
 
 ## Example
 
