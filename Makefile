@@ -1,28 +1,24 @@
-NAME	:= get_next_line
-CFLAGS	:= -Wall -Wextra
-# CFLAGS	+= -Werror
-CFLAGS	:= -Ofast
+NAME	:= libgnl.a
+CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
 
 HEADERS	:= -I ./include
-SRC_DIR	:= ./src
-OBJ_DIR	:= ./obj
-SRCS	:= $(shell find $(SRC_DIR) -type f -name "*.c")
-OBJS	:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRCS	:= $(shell find src -type f -name "*.c")
+OBJS	:= $(SRCS:src/%.c=obj/%.o)
 
 all: $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+obj/%.o: src/%.c
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && echo "Compiled: $(notdir $@)"
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && echo "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(HEADERS) -o $(NAME) && echo "Linked: $(NAME)"
+	$(AR) rcs $(NAME) $(OBJS) && echo "Linked: $(NAME)"
 
 clean:
-	rm -rf $(OBJ_DIR) && echo "Removed: $(OBJ_DIR)"
+	rm -rf $(OBJS) && echo "Removed: $(OBJS)"
 
 fclean: clean
-	rm -f $(NAME) && echo "Removed: $(NAME)"
+	rm -rf $(NAME) && echo "Removed: $(NAME)"
 
 re: clean all
 
