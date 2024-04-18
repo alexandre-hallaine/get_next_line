@@ -20,7 +20,6 @@ char *get_next_line(int fd) {
         buf[buf_len] = '\0';
 
         str = realloc(str, str_len + buf_len + 1);
-        str[str_len + buf_len] = '\0';
         strcpy(str + str_len, buf);
 
         endl = strchr(str + str_len, '\n');
