@@ -4,4 +4,5 @@
 #define BUFFER_SIZE (1 << 8)
 #endif
 
-char *get_next_line(int fd);
+// get_next_line.c
+char    *get_next_line(int fd);
