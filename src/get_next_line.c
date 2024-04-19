@@ -31,8 +31,7 @@ char *get_next_line(int fd) {
         str = NULL;
     else {
         *endl = '\0';
-        str = malloc(str_len - (endl - str));
-        strcpy(str, endl + 1);
+        str = strdup(endl + 1);
     }
 
     return line;

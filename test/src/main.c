@@ -46,5 +46,5 @@ int main(int argc, char **argv) {
         if ((tmp = test(argv[1])) < time)
             time = tmp;
 
-    printf("Average time: %ld µs\n", time);
+    printf("Time: %ld\n", time);
 }
