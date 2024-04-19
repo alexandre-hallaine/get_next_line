@@ -46,5 +46,5 @@ int main(int argc, char **argv) {
         if ((tmp = test(argv[1])) < time)
             time = tmp;
 
-    printf("Time: %ld\n", time);
+    printf("Time: %ld µs\n", time);
 }
