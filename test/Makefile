@@ -20,13 +20,13 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) && echo "Linked: $(NAME)"
 
 clean:
-	rm -rf $(OBJS) && echo "Removed: $(OBJS)"
+	rm -f $(OBJS) && echo "Removed: $(OBJS)"
 	make -C $(LIBGNL) clean
 
 fclean: clean
-	rm -rf $(NAME) && echo "Removed: $(NAME)"
+	rm -f $(NAME) && echo "Removed: $(NAME)"
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx, libgnl
+.PHONY: all clean fclean re libgnl
 .SILENT:

@@ -18,7 +18,7 @@ clean:
 	rm -f $(OBJS) && echo "Removed: $(OBJS)"
 
 fclean: clean
-	rm -rf $(NAME) && echo "Removed: $(NAME)"
+	rm -f $(NAME) && echo "Removed: $(NAME)"
 
 re: clean all
 
