@@ -35,7 +35,7 @@ The `get_next_line` function is designed to handle reading from files in a buffe
 
 ## License
 
-Specify your license here. If you are unsure, the MIT license is a permissive option.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Additional Notes
 
