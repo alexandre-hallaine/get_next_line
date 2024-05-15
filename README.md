@@ -4,14 +4,14 @@ This C library provides the function `get_next_line` for efficiently reading a f
 
 ## Purpose
 
-The `get_next_line` function is designed to handle reading from files in a buffered manner, optimizing performance while maintaining the ability to read one line at a time.
+The `get_next_line` function is designed to handle reading from files in a buffered manner, optimizing performance while maintaining the ability to read one line at a time. It dynamically allocates memory for each line, returning a null-terminated string (`char *`).
 
 ## Usage
 
 1. **Include the header file:**
 
    ```c
-   #include "get_next_line.h"
+   #include <get_next_line.h>
    ```
 
 2. **Call the function:**
@@ -21,8 +21,7 @@ The `get_next_line` function is designed to handle reading from files in a buffe
    char *line;
 
    while ((line = get_next_line(fd)) != NULL) {
-       // Process the line
-       printf("%s\n", line);
+       printf("%s\n", line); // Process the line
        free(line); // Free the memory allocated by get_next_line
    }
 
@@ -31,7 +30,7 @@ The `get_next_line` function is designed to handle reading from files in a buffe
 
 ## Building and Testing
 
-- This project uses Meson. Follow Meson's instructions to build and run.
+This project uses Meson. Follow Meson's instructions to build, test and install.
 
 ## License
 
