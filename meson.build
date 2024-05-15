@@ -6,7 +6,13 @@ inc = include_directories('include')
 
 lib = library('gnl', src,
     include_directories: inc,
-    install: true)
+    install: true
+)
+
+gnl = declare_dependency(
+    include_directories: inc,
+    link_with: lib
+)
 
 install_headers('include/get_next_line.h')
 
