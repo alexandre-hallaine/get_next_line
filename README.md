@@ -28,9 +28,14 @@ The `get_next_line` function is designed to handle reading from files in a buffe
    close(fd);
    ```
 
-## Building and Testing
+## Installation
 
-This project uses Meson. Follow Meson's instructions to build, test and install.
+This project uses the Meson build system. To build and install the library, follow these steps:
+
+1.  **Install Meson:** If you don't have Meson installed, you can get it from https://mesonbuild.com/.
+2.  **Configure Build:** Run `meson setup build` to configure the build directory.
+3.  **Build:** Run `meson compile -C build` to compile the library.
+4.  **Install:** Run `meson install -C build` to install the library and header file.
 
 ## License
 
