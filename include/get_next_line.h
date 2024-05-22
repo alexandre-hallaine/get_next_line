@@ -1,8 +1,7 @@
 #pragma once
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE (1 << 8)
+# define BUFFER_SIZE (1 << 10)
 #endif
 
-// get_next_line.c
-char    *get_next_line(int fd);
+char *get_next_line(int fd);

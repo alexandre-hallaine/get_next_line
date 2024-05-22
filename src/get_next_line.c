@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 
 char *get_next_line(int fd) {
@@ -21,7 +21,6 @@ char *get_next_line(int fd) {
 
         str = realloc(str, str_len + buf_len + 1);
         strcpy(str + str_len, buf);
-
         endl = strchr(str + str_len, '\n');
         str_len += buf_len;
     }

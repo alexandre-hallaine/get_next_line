@@ -1,47 +1,72 @@
-# Get Next Line (GNL) Library
+# GetNextLine
 
-This C library provides the function `get_next_line` for efficiently reading a file line by line.
+## Overview
 
-## Purpose
+`get_next_line` is a robust and efficient C function designed for reading text files line by line. It's particularly well-suited for handling large files due to its exceptional memory efficiency. Here's how it achieves this:
 
-The `get_next_line` function is designed to handle reading from files in a buffered manner, optimizing performance while maintaining the ability to read one line at a time. It dynamically allocates memory for each line, returning a null-terminated string (`char *`).
+* **Intelligent Caching:** `get_next_line` only caches the necessary data for the current line, minimizing memory footprint and optimizing performance, especially for large files or resource-constrained environments.
+* **Dynamic Buffer Management:** The `BUFFER_SIZE` macro lets you fine-tune how much data is read from the file in each I/O operation.
 
 ## Usage
 
-1. **Include the header file:**
-
+1. **Include the Header:**
    ```c
-   #include <get_next_line.h>
+   #include "get_next_line.h"  // Note: Use quotes for local header files
    ```
 
-2. **Call the function:**
-
+2. **Call the Function:**
    ```c
    int fd = open("your_file.txt", O_RDONLY);
    char *line;
 
    while ((line = get_next_line(fd)) != NULL) {
-       printf("%s\n", line); // Process the line
-       free(line); // Free the memory allocated by get_next_line
+      printf("%s\n", line);
+      free(line);
    }
 
    close(fd);
    ```
 
-## Installation
+## Build and Installation (with Meson)
 
-This project uses the Meson build system. To build and install the library, follow these steps:
+1. **Configure and Build:**
+   ```bash
+   meson setup build
+   meson compile -C build
+   ```
 
-1.  **Install Meson:** If you don't have Meson installed, you can get it from https://mesonbuild.com/.
-2.  **Configure Build:** Run `meson setup build` to configure the build directory.
-3.  **Build:** Run `meson compile -C build` to compile the library.
-4.  **Install:** Run `meson install -C build` to install the library and header file.
+2. **Install (Optional):**
+   ```bash
+   meson install -C build
+   ```
+
+3. **Link:**
+   ```bash
+   gcc main.c -lgnl
+   ```
+   Add `-L <path_to_build_dir>` if you haven't installed the library.
+
+## Testing
+
+- **Functional Test (`simple.c`):**
+   ```bash
+   meson test -C build
+   ```
+
+- **Speed Test (`speed.c`):**
+   ```bash
+   ./build/speed <your_file.txt>
+   ```
+
+## Error Handling and Memory Management
+
+* **Error Handling:** Always check the return value of `get_next_line`. If it's `NULL`, this indicates either an error or the end of the file has been reached.
+
+* **Memory Management:** Free the memory allocated by `get_next_line` after processing each line to prevent memory leaks:
+   ```c
+   free(line);
+   ```
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Additional Notes
-
-- Error handling is not extensively implemented in this basic version. Consider adding error checks in a production environment.
-- The `BUFFER_SIZE` constant in `get_next_line.c` controls the buffer size. Adjust it for optimal performance.
+This project is licensed under the MIT License.  See the [LICENSE](LICENSE) file for details.

@@ -1,4 +1,4 @@
-project('get_next_line', 'c', version: '1.0.0')
+project('GetNextLine', 'c', version: '1.0.0')
 
 src = files('src/get_next_line.c')
 
@@ -9,7 +9,7 @@ lib = library('gnl', src,
     install: true
 )
 
-gnl = declare_dependency(
+dep = declare_dependency(
     include_directories: inc,
     link_with: lib
 )
