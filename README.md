@@ -1,33 +1,11 @@
 # GetNextLine
 
-## Overview
+`get_next_line` is a powerful C function designed for efficiently reading text files line by line. It's particularly valuable for handling large files due to its smart memory management:
 
-`get_next_line` is a robust and efficient C function designed for reading text files line by line. It's particularly well-suited for handling large files due to its exceptional memory efficiency. Here's how it achieves this:
+* **Minimal Memory Footprint:** Caches only the data needed for the current line, making it ideal for large files or resource-constrained systems.
+* **Customizable Buffer Size:**  The `BUFFER_SIZE` macro allows you to tailor how much data is read in each operation.
 
-* **Intelligent Caching:** `get_next_line` only caches the necessary data for the current line, minimizing memory footprint and optimizing performance, especially for large files or resource-constrained environments.
-* **Dynamic Buffer Management:** The `BUFFER_SIZE` macro lets you fine-tune how much data is read from the file in each I/O operation.
-
-## Usage
-
-1. **Include the Header:**
-   ```c
-   #include "get_next_line.h"  // Note: Use quotes for local header files
-   ```
-
-2. **Call the Function:**
-   ```c
-   int fd = open("your_file.txt", O_RDONLY);
-   char *line;
-
-   while ((line = get_next_line(fd)) != NULL) {
-      printf("%s\n", line);
-      free(line);
-   }
-
-   close(fd);
-   ```
-
-## Build and Installation (with Meson)
+## Installation
 
 1. **Configure and Build:**
    ```bash
@@ -40,32 +18,46 @@
    meson install -C build
    ```
 
-3. **Link:**
+3. **Link in Your Project:**
    ```bash
    gcc main.c -lgnl
    ```
-   Add `-L <path_to_build_dir>` if you haven't installed the library.
+   Add `-L <path_to_build_dir>` if the library is not installed.
+
+## Example Code
+
+```c
+#include "get_next_line.h"
+
+int main() {
+   int fd = open("your_file.txt", O_RDONLY);
+   char *line;
+
+   while ((line = get_next_line(fd)) != NULL) {
+      printf("%s\n", line);
+      free(line); // Important: Prevent memory leaks
+   }
+
+   close(fd);
+   return 0;
+}
+```
 
 ## Testing
 
-- **Functional Test (`simple.c`):**
+- **Functional Tests (`simple.c`):**
    ```bash
    meson test -C build
    ```
 
 - **Speed Test (`speed.c`):**
    ```bash
-   ./build/speed <your_file.txt>
+   ./build/tests/speed <your_file.txt>
    ```
 
-## Error Handling and Memory Management
+## Additional Notes
 
-* **Error Handling:** Always check the return value of `get_next_line`. If it's `NULL`, this indicates either an error or the end of the file has been reached.
-
-* **Memory Management:** Free the memory allocated by `get_next_line` after processing each line to prevent memory leaks:
-   ```c
-   free(line);
-   ```
+* **Multiple Files:** When reading from multiple files sequentially, ensure all lines are consumed from the current file (until `get_next_line` returns `NULL`) before switching to the next. Alternatively, clear the internal buffer by reading from `/dev/null`.
 
 ## License
 

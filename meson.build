@@ -4,7 +4,7 @@ src = files('src/get_next_line.c')
 
 inc = include_directories('include')
 
-lib = library('gnl', src,
+lib = static_library('gnl', src,
     include_directories: inc,
     install: true
 )
